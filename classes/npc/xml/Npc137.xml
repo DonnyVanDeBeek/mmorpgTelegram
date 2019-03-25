@@ -1,0 +1,40 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<?xml-stylesheet type="text/css" href="css/main.css"?>
+
+<root>
+    <fraseIniziale>Un vecchio signore ti fissa in modo inquietante</fraseIniziale>
+    
+    <menu>
+        <opzioni stato = "1">
+            <click id = "Salve" vai-a-stato = "2" da-programmare = "false">
+                <scelta>Salve</scelta>
+                <risposta>_npc.nome_: Salve baldo giovine!</risposta>
+            </click>
+
+            <click id = "Sfanculizza" vai-a-stato = "fine" da-programmare = "false">
+                <scelta>Sfanculizza</scelta>
+                <risposta>_npc.nome_: Ammazzati...!</risposta>
+            </click>
+
+            <click id = "sono_abbastanza_intelligente_per_te" vai-a-stato = "fine" da-programmare = "true">
+                <scelta>Sono abbastanza intelligente per te?</scelta>
+                <risposta></risposta>
+            </click>
+        </opzioni>
+
+
+        <opzioni stato = "2">
+            <click id = "ComeSeLaPassa?" vai-a-stato = "fine" da-programmare = "false">
+                <scelta>Come se la passa?</scelta>
+                <risposta>_npc.nome_: Non troppo male grazie! Ci sentiamo!</risposta>
+            </click>
+
+            <click id = "BelloIlTempo" vai-a-stato = "fine" da-programmare = "false">
+                <scelta>Bello il tempo, oggi!</scelta>
+                <risposta>_npc.nome_: Concordo! Ci si vede!</risposta>
+            </click>
+        </opzioni>
+
+
+   </menu>
+</root>

@@ -1,33 +1,21 @@
 <?php
-	class TipoMob{
+	class TipoMob extends Creatura{
 		protected $tipoMobId;
 		protected $tipoMobNome;
 		protected $tipoMobDesc;
 		protected $tipoMobExp;
 		protected $tipoMobSoldi;
 		protected $tipoMobImgPath;
-		protected $tipoMobForza;
-		protected $tipoMobSaggezza;
-		protected $tipoMobIntelligenza;
-		protected $tipoMobCostituzione;
-		protected $tipoMobDestrezza;
-		protected $tipoMobCarisma;
-		protected $tipoMobHp;
-		protected $tipoMobHpXLivello;
-		protected $tipoMobForzaXLivello;
-		protected $tipoMobIntelligenzaXLivello;
-		protected $tipoMobCostituzioneXLivello;
-		protected $tipoMobDestrezzaXLivello;
-		protected $tipoMobSaggezzaXLivello;
-		protected $tipoMobCarismaXLivello;
+
+		protected $entitaId = 1;
 
 		protected $db;
 
 		private $tableName = 'BOT_RPG_TIPO_MOB';
 
 		public function __construct($id){
-			global $con;
-			$this->db = &$con->getDB();
+			//global $con;
+			$this->db = Database();
 
 			$q = "SELECT * FROM ". $this->tableName ." WHERE TIPO_MOB_ID = ". $id;
 			$res = $this->db->query($q);
@@ -39,24 +27,7 @@
 			$this->tipoMobExp                   =	$row->TIPO_MOB_EXP;
 			$this->tipoMobSoldi                 =	$row->TIPO_MOB_SOLDI;
 			$this->tipoMobImgPath               =	$row->TIPO_MOB_IMGPATH;
-			$this->tipoMobForza                 =	$row->TIPO_MOB_FORZA;
-			$this->tipoMobSaggezza              =	$row->TIPO_MOB_SAGGEZZA;
-			$this->tipoMobIntelligenza          =	$row->TIPO_MOB_INTELLIGENZA;
-			$this->tipoMobCostituzione          =	$row->TIPO_MOB_COSTITUZIONE;
-			$this->tipoMobDestrezza             =	$row->TIPO_MOB_DESTREZZA;
-			$this->tipoMobCarisma               =	$row->TIPO_MOB_CARISMA;
-			$this->tipoMobHp                    =	$row->TIPO_MOB_HP;
-			$this->tipoMobHpXLivello            =	$row->TIPO_MOB_HP_XLIVELLO;
-			$this->tipoMobForzaXLivello         =	$row->TIPO_MOB_FORZA_XLIVELLO;
-			$this->tipoMobIntelligenzaXLivello  =	$row->TIPO_MOB_INTELLIGENZA_XLIVELLO;
-			$this->tipoMobCostituzioneXLivello  =	$row->TIPO_MOB_COSTITUZIONE_XLIVELLO;
-			$this->tipoMobDestrezzaXLivello     =	$row->TIPO_MOB_DESTREZZA_XLIVELLO;
-			$this->tipoMobSaggezzaXLivello      =	$row->TIPO_MOB_SAGGEZZA_XLIVELLO;
-			$this->tipoMobCarismaXLivello       =	$row->TIPO_MOB_CARISMA_XLIVELLO;
-		}
-
-		public function getNome(){
-			return $this->tipoMobNome;
+			$this->tipoMobCategoria				= 	$row->TIPO_MOB_CATEGORIA_TIPO_MOB_ID;
 		}
 
 		public function getTipoMobId(){
@@ -83,60 +54,73 @@
 			return $this->tipoMobImgPath;
 		}
 
-		public function getTipoMobForza(){
-			return $this->tipoMobForza;
+		public function getArrayOfTipoMobLearnedSkillsId(){
+			$q = "SELECT SKILL_ID FROM BOT_RPG_SKILL_TIPO_MOB WHERE TIPO_MOB_ID = ".$this->getTipoMobId();
+			$res = $this->db->query($q);
+			$data = array();
+			while($row = $res->fetch_object()){
+				$data[] = $row->SKILL_ID;
+			}
+			return $data;
 		}
 
-		public function getTipoMobForzaXLivello(){
-			return $this->tipoMobForzaXLivello;
+		public function getStatFromTipoMob($statId){
+			if(isset($this->arrStat[$statId]['tipoMob']))
+				return $this->arrStat[$statId]['tipoMob'];
+
+			$q = "SELECT VALUE, VALUE_XLVL FROM BOT_RPG_STAT_TIPO_MOB WHERE TIPO_MOB_ID = ".$this->getTipoMobId()." AND STAT_ID = ".$statId;
+			$res = $this->db->query($q);
+			if($res->num_rows == 0) return 0;
+			$row = $res->fetch_object();
+			$data = array();
+			$data['VALUE'] = $row->VALUE;
+			$data['VALUE_XLVL'] = $row->VALUE_XLVL;
+			$this->arrStat[$statId]['tipoMob'] = $row->VALUE + ($row->VALUE_XLVL * $this->getMobLevel());
+			return $this->arrStat[$statId]['tipoMob'];
+			//return $data;
 		}
 
-		public function getTipoMobIntelligenza(){
-			return $this->tipoMobIntelligenzaXLivello;
+		public function printStats(){
+			$str = '';
+			$sql = "SELECT STAT_ID, STAT_NOME FROM BOT_RPG_STAT";
+			$res = Database()->query($sql);
+			while($row = $res->fetch_object()){
+				$stat = $this->getStatFromTipoMob($row->STAT_ID);
+				if($stat['VALUE'] != ''){
+					$str .= '<b>'.strtoupper($row->STAT_NOME).'</b>:'."\n";
+					$str .= 'BASE: '.$stat['VALUE']."\n";
+					$str .= 'XLVL: '.$stat['VALUE_XLVL']."\n";
+					$str .= "\n";
+				}
+			}
+			return $str;
 		}
 
-		public function getTipoMobIntelligenzaXLivello(){
-			return $this->tipoMobIntelligenzaXLivello;
+		public function getRandTipoMobFrase(){
+			$q = "SELECT FRASE_TESTO
+				  FROM BOT_RPG_FRASE_TIPO_MOB FTM, BOT_RPG_FRASE F
+				  WHERE TIPO_MOB_ID = ".$this->getTipoMobId().
+				" AND FTM.FRASE_ID = F.FRASE_ID
+				  ORDER BY RAND()
+				  LIMIT 1";
+			$res = $this->db->query($q);
+			if($res->num_rows == 0) return "...";
+			$row = $res->fetch_object();
+			return $row->FRASE_TESTO;
 		}
 
-		public function getTipoMobSaggezza(){
-			return $this->tipoMobSaggezza;
+		public function getArrayOfSottoluogoSpawnId(){
+			$q = "SELECT SOTTOLUOGO_ID FROM BOT_RPG_MOB_SPAWN WHERE TIPO_MOB_ID = ".$this->getTipoMobId();
+			$res = $this->db->query($q);
+			$data = array();
+			while($row = $res->fetch_object()){
+				$data[] = $row->SKILL_ID;
+			}
+			return $data;
 		}
 
-		public function getTipoMobSaggezzaXLivello(){
-			return $this->tipoMobSaggezzaXLivello;
-		}
-
-		public function getTipoMobDestrezza(){
-			return $this->tipoMobDestrezza;
-		}
-
-		public function getTipoMobDestrezzaXLivello(){
-			return $this->tipoMob;
-		}
-
-		public function getTipoMobCostituzione(){
-			return $this->tipoMobCostituzione;
-		}
-
-		public function getTipoMobCostituzioneXLivello(){
-			return $this->tipoMobCostituzioneXLivello;
-		}
-
-		public function getTipoMobCarisma(){
-			return $this->tipoMobCarisma;
-		}
-
-		public function getTipoMobCarismaXLivello(){
-			return $this->tipoMobCarismaXLivello;
-		}
-
-		public function getTipoMobHp(){
-			return $this->tipoMobHp;
-		}
-
-		public function getTipoMobHpXLivello(){
-			return $this->tipoMobHpXLivello;
+		public function getCategoria(){
+			return $this->tipoMobCategoria;
 		}
 
 	}

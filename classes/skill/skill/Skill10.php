@@ -1,0 +1,74 @@
+<?php
+	class Skill10 extends Skill{
+		//FRECCIA SEMPLICE
+		private $id = 10;
+		public function __construct(){
+			parent::__construct($this->id);
+		}
+
+		public function trigger(){
+			//DEFINISCO LE VARIABILI CHE VADO A UTILIZZARE
+			//$Caster è CHI LANCIA LA SKILL
+			//$Target è IL BERSAGLIO DELLA SKILL
+			//$Equips SONO GLI EQUIP DI CHI LANCIA LA SKILL CHE VENGONO UTILIZZATI DALLA SKILL
+			//A ESEMPIO, QUESTA SKILL "FRECCIA SEMPLICE" UTILIZZERA' GLI EQUIP DI CATEGORIA "ARCO" E "BALESTRA"
+			$Caster = $this->getCaster();
+			$Target = $this->getTarget();
+			$Equips = $this->getEquips();
+
+			//CON $Caster->selectAllMobsId() OTTENGO UN ARRAY DI INTERI CONTENENTI TUTTI GLI ID DEI MOB
+			//PRESTO TI FORNIRO' UNA FUNZIONE PER CREARE MOB CONOSCENDONE L'ID
+
+			//FACCIO APPARIRE NEL MESSAGGIO IL SEGUENTE TESTO
+			//IL METODO getNome() MI PERMETTE DI PRENDE IL NICKNAME SE L'OGGETTO E' UN UTENTE -> (Brunplunsu)
+			//SE INVECE L'OGGETTO E' UN MOB MI PRENDERA' IL TIPO DEL MOB + IL NOME PROPRIO -> (Cinghiale Cattivo Gagliardotto)
+			write($Caster->getNome() . ' scocca una freccia verso '.$Target->getNome().'! '.BOW."\n");
+
+			//DEFINISCO IL DANNO
+			//IL METODO getTotalStat(string) MI PERMETTE DI PRENDERE UNA STATISTICA DELL'OGGETTO CHE LA RICHIAMA, SIA MOB CHE UTENTE
+			$dmg = $Caster->getTotalStat('FORZA') * 0.3;
+
+			//CREO UN NUOVO OGGETTO Danno
+			$da = new Danno();
+			//IMPOSTO CHI PROVOCA IL DANNO
+			$da->setDealer($Caster);
+			//IMPOSTO IL VALORE DEL DANNO
+			$da->setDmg($dmg);
+			//IMPOSTO IL TIPO DI DANNO (FISICO, MAGICO, CONTUNDENTE, PERFORANTE, TAGLIENTE, BRUCIATURA, SANGUINAMENTO...)
+			$da->setTipo('FISICO');
+			//IMPOSTO LA PRECISIONE, QUESTA VERRA' CONFRONTATA CON LA DESTREZZA DI CHI RICEVE LA SKILL PER DECIDERE IL DODGE
+			$da->setPrecisione(65);
+			//IMPOSTO GLI EQUIPS CHE SI ATTIVERANNO DURANTE IL DANNO
+			$da->setEquips($Equips);
+			//IMPOSTO CHI SUBISCE IL DANNO
+			$da->setTarget($Target);
+
+			//FUNZIONE PER FARE IN MODO CHE GLI EQUIP INFLUENZINO IL DANNO
+			//A ESEMPIO UN ARCO MAGICO POTREBBE APPLICARE UN DEBUFF O UNA BRUCIATURA, CHE ADESSO VEDREMO
+			$this->equipBuff($da);
+
+			//METODI AGGIUNTIVI CHE QUI NON VENGONO USATI:
+			//Danno->setBuffs(array(Buff)) PER IMPOSTARE UNA SERIE DI OGGETTI BUFF CHE TROVERAI SPIEGATI IN UN ALTRO FILE
+			//Danno->addBuffs(Buff) IDEM MA AGGIUNGE SOLO UN BUFF
+
+			//Danno->setOverTimes(array(OverTime)) STESSO DISCORSO DEI BUFF
+			//Danno->addOverTimes(OverTime) IDEM
+
+			//INVIA IL DANNO AL MOB
+			$da->send();
+
+			//ATTIVA GLI EFFETTI DEGLI EQUIP IN ATTACCO
+			$this->equipOnAttack();
+
+			//QUESTO PER ORA NON FUNZIONA
+			//$caster->setPA($Caster->getPA() - 1);
+
+			$this->startCooldown($this->getCooldown());
+
+			//RITORNA TRUE SE HAI LANCIATO CON SUCCESSO LA SKILL, ALTRIMENTI FALSE.
+			//MAGARI UNA SKILL NON PUO' ESSERE UTILIZZATA IN UNA CERTA FASCIA ORARIA
+			//IN CASO EFFETTUARE UN CONTROLLO E RITORNARE FALSE CON UN write($string)
+			//CHE SPIEGI IL MOTIVO DEL MANCATO UTILIZZO
+			return true;
+		}
+	}

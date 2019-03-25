@@ -1,0 +1,56 @@
+@font-face {
+   font-family: chineseTakeaway;
+   src: url(fonts/CHINESETAKEAWAY.ttf);
+}
+
+@font-face{
+	font-family: bonzai;
+	src: url(fonts/bonzai.ttf);
+}
+
+root{
+	background-color: gray;
+	display: block;
+}
+
+scelta{
+	font-size: 45px;
+	font-family: chineseTakeaway;
+	display:block;
+}
+
+risposta{
+	font-size: 30px;
+	font-family: bonzai;
+	color: white;
+}
+
+click{
+	/*border: 1px solid black;*/
+	display: block;
+	margin: 1%;
+	color: #C32148;
+	/*color: #F08080;*/
+}
+
+opzioni{
+	border: 1px solid black;
+	display: block;
+	margin: 1%;
+	background-color: black;
+}
+
+fraseIniziale{
+	font-family: chineseTakeaway;
+	font-weight: bold;
+	font-size: 32px;
+}
+
+click[da-programmare=true]{
+	/*color: #00BFFF;*/
+	color: #4F69C6;
+}
+
+variabile{
+	display: none;
+}

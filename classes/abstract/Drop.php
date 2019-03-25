@@ -1,5 +1,5 @@
 <?php
-	Class Drop extends Database{
+	Class Drop{
 		private $utente;
 		private $mob;
 		private $item_id;
@@ -7,20 +7,33 @@
 		private $min;
 		private $prob;
 
+		private $db;
+
+		protected $msg = array();
+
 		public function __construct($ut, $mo){
-			$this->getDB();
+			$this->db = Database();
 			$this->utente = $ut;
 			$this->mob = $mo;
 		}
 
+		public function getMsg($name){
+			return $this->msg[$name];
+		}
+
 		public function send(){
 			$msg = '';
+			$j = 0;
 			$q = "
 				SELECT *
 				FROM BOT_RPG_DROP
 				WHERE DROP_TIPO_MOB_ID = ".$this->mob->getTipoMobId()."
 					AND DROP_SOTTOLUOGO_ID = ".$this->utente->getUtenteSottoluogoId()."
-					AND DROP_SOTTOLUOGO_ID = ".$this->mob->getMobSottoluogoId();
+					AND DROP_SOTTOLUOGO_ID = ".$this->mob->getMobSottoluogoId()."
+					OR 
+					DROP_SOTTOLUOGO_ID = 999999
+					AND
+					DROP_TIPO_MOB_ID = ".$this->mob->getTipoMobId();
 			$res = $this->db->query($q);
 			while($row = $res->fetch_object()){
 				$count = 0;
@@ -34,16 +47,20 @@
 
 				if($count != 0){
 					$msg .= 'x'.$count.' '.$this->getNomeItemById($row->DROP_TIPO_ITEM_ID)."\n";
+
+					$j++;
 				}
 
 			}
 
-			if(is_null($msg))
-				$msg = $this->mob->getNome() . ' non ha droppato nulla!';
+			if($msg == '')
+				$msg = '<b>'.$this->mob->getNome() . ' non ha droppato nulla!</b>'."\n";
 			else
-				$msg = '<b>Uccidendo '.$this->mob->getNome().' hai ottenuto:</b>'."\n" . $msg;
+				$msg = '<b>'.$this->mob->getNome().' ha droppato:</b>'."\n" . $msg;
 
-			return $msg;
+			write($msg);
+
+			return true;
 		}
 
 		public function getNomeItemById($id){

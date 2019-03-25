@@ -1,0 +1,19 @@
+Ti avvicini all'uomo che brandisce l'arco. Noti dietro di lui la grossa faretra colma di frecce.\n\nSembra assorto nei suoi pensieri.
+1@@@@Toccalo####Tenti di afferrargli la mano ma lui si scansa.\n\n"Ma che pensavi di fare, ragazzino?"||||2
+1@@@@Parlagli####Cosa potresti dirgli per attirare la sua attenzione?||||3
+1@@@@Spaventalo####Con tutto il tuo fiato tenti di emettere un urlo spaventoso. Lui sembra ignorarti||||exit
+1@@@@Fissalo####Sembra essere sempre molto pensieroso.||||1
+1@@@@Non disturbarlo####Decidi di non disturbare l'arciere||||exit
+2@@@@Scusi, non intendevo disturbarla####<b>Fernbinder</b>: Sarà meglio per te. Io sono Fernbinder e non ci penso due volte a infilarti una freccia in mezzo agli occhi||||exit
+2@@@@Esagerato, manco le avessi scagliato una freccia nel ginocchio!####<b>Fernbinder</b>: Attento a come parli. Io sono Fernbinder, uno degli arcieri più abili tra gli uomini||||7
+7@@@@Raccontami di più sul tuo conto####<b>Fernbinder</b>: Vai al nord e ti sapranno raccontare tutto su di me||||exit
+7@@@@Io sono più forte!####<b>Fernbinder</b>: Questo è tutto da vedere!\n\nFernbinder scaglia una freccia in cielo.\n\n<b>Fernbinder</b>: Resta immobile||||8
+7@@@@Buon per te####<b>Fernbinder</b>: Sparisci, marmocchio insolente!||||exit
+8@@@@Rimani fermo####Rimani immobile mentre un mezzo sorriso si materializza sul volto di Fernbinder.\n\nUna freccia cade dall'alto ai tuoi piedi, sfiorando di pochi millimetri il tuo naso.\n\n<b>Fernbinder</b>: Mmh, ancora troppo poco preciso. Devo migliorare! Adesso lasciami ai miei pensieri||||exit
+8@@@@Esegui un balletto improvvisato####<b>Fernbinder</b>: Idiota!\n\nFernbinder ti si lancia addosso, facendoti cadere a terra.\nImmediatamente dopo, una freccia atterra nel punto in cui c'eri tu prima di cadere.\n\n<b>Fernbinder</b>: Di questo passo non sopravviverai molto. Ti do un consiglio, quando qualcuno più esperto di te ti da dei consigli, seguili!\nCerca di non farti ammazzare. A presto, idiota.||||exit
+3@@@@Arcieri sexy come te non se ne vedono tutti i giorni####<b>Fernbinder</b>: Non ho tempo per le tue stupidaggini, io sono Fernbinder. Sparisci moccioso||||exit
+3@@@@Bella faretra, la fanno anche per uomini?####<b>Fernbinder</b>: Le tue sciocchezze non provocano il grande Fernbinder.\n\nFernbinder ti salta addosso in modo fulmineo. In un istante ti ritrovi a terra con Fernbinder che punta l'arco verso di te con un freccia incoccata puntata verso il tuo cuore.\n\n<b>Fernbinder</b>: O forse mi provocano... non lo so. Ma se fossi davvero arrabbiato con te ti avrei già ucciso. Levati prima che cambi idea||||exit
+3@@@@Non male il tempo oggi, vero?####L'arciere ti fulmina con un'occhiataccia. Meglio lasciar stare.||||exit
+3@@@@A cosa stai pensando?####L'uomo accenna un sorriso.\n\n<b>Fernbinder</b>: Mi fa piacere che tu me lo chieda, io sono Fernbinder. Sovente penso alle mie gesta passate. Adoro fare tuffi nel passato. Tempi che non ritorneranno più. Ma la vità umana è troppo breve per sguazzare nel passato.||||9
+9@@@@Quali sono le gesta a cui ti riferisci?####<b>Fernbinder</b>: Tu non hai girato molto, vero? Vai a nord e troverai il mio nome un po' ovunque, te lo assicuro||||exit
+9@@@@Il tuo è un pensiero molto profondo####<b>Fernbinder</b>: La saggezza è la più importante delle virtù. Ma anche la più difficile da acquisire||||exit

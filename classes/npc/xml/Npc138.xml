@@ -1,0 +1,50 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<?xml-stylesheet type="text/css" href="css/main.css"?>
+
+<root>
+    <menu id = "haLaLettera">
+    	<fraseIniziale>_npc.nome_: Come dici? AHAHAHAH!!! Hai qualcosa per me? AHAHAH!!!</fraseIniziale>
+    	<opzioni stato = "1">
+    		<click id = "ho_una_lettera" vai-a-stato = "fine" da-programmare = "true" controllo-visibile = "false">
+    			<scelta>Ho una lettera per te da parte di Tonio</scelta>
+    			<risposta></risposta>
+
+    			<funzione>
+    				<variabile id = "risposta">
+    					<val>
+    						_npc.nome_: Da' qua...\n\nPorgi la lettera a _npc.nome_. Lui la legge attentamente\n\n_npc.nome_: AHAHAHA!!! Tonio è sempre il migliore! Quanto a te, smamma!
+    					</val>
+    				</variabile>
+
+    				<variabile><val></val></variabile>
+    			</funzione>
+    		</click>
+
+    		<click id = "non_ho_nulla" vai-a-stato = "fine" da-programmare = "false" controllo-visibile = "false">
+    			<scelta>Non ho nulla da darti</scelta>
+    			<risposta>_npc.nome_ ti lancia uno sguardo torvo\n\n_npc.nome_: Devo aver capito male...</risposta>
+    		</click>
+    	</opzioni>
+
+    	<opzioni stato = "2">
+    		<click></click>
+    	</opzioni>
+    </menu>
+
+    <menu id = "dopoConsegna">
+    	<fraseIniziale>_npc.nome_: Hey idiota, grazie per quella lettera! AHAHAHAH!!!</fraseIniziale>
+    	<opzioni stato = "1">
+    		<click id = "ignoralo" vai-a-stato = "fine" da-programmare = "false" controllo-visibile = "false">
+    			<scelta>Ignoralo</scelta>
+    			<risposta>Ignori completamente _npc.nome_.\nNon sembra per nulla indispettito</risposta>
+    		</click>
+
+    		<click></click>
+    	</opzioni>
+
+    	<opzioni stato = "2">
+    		<click></click>
+    	</opzioni>
+    </menu>
+
+</root>

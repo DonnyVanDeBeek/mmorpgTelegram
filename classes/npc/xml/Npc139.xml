@@ -1,0 +1,165 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<?xml-stylesheet type="text/css" href="css/main.css"?>
+
+<root>
+    <menu id = "base">
+        <fraseIniziale>Un uomo con un occhio di vetro ti fa cenno di avvicinarti</fraseIniziale>
+        <opzioni stato = "1">
+            <click id = "avvicinati" vai-a-stato = "2" da-programmare = "false" controllo-visibile = "false">
+                <scelta>Avvicinati</scelta>
+                <risposta>
+                    _npc.nome_: Non avere paura, ehehe. Voglio solo farti un'offerta. Devi portare questa lettera a un mio caro amico, Adam. Dopo averlo fatto, torna qui da me e ti riempirò di ricompense! Armi leggendarie, tesori inimmaginabili. Ci stai, amico?
+                </risposta>
+            </click>
+
+            <click id = "chiedigli_cosa_vuole" vai-a-stato = "3" da-programmare = "false" controllo-visibile = "true">
+                <scelta>Chiedigli cosa vuole</scelta>
+                <risposta>
+                    _npc.nome_: Ho una proposta allettante, tranquillo, nulla di illegale. Forse, solo un pochetto losco! Ehehe
+                </risposta>
+
+                 <controlloVisibile>
+
+                    <variabile id = "carisma_minimo">
+                        <val>50</val>
+                    </variabile>
+
+                    <variabile id = "prova">
+                            <val></val>
+                    </variabile>
+
+                </controlloVisibile>
+            </click>
+
+            <click id = "ignoralo_e_allontanati" vai-a-stato = "fine" da-programmare = "false" controllo-visibile = "false">
+                <scelta>Ignoralo e allontanati</scelta>
+                <risposta>
+                    _npc.nome_: Fai finta di non sentirmi? Ma dove te ne scappi!! La mia fama mi precede, noto con piacere. O forse dovrei dire infamia...
+                </risposta>
+            </click>
+        </opzioni>
+
+
+        <opzioni stato = "2">
+            <click id = "si_dammi_qua" vai-a-stato = "fine" da-programmare = "true" controllo-visibile = "false">
+                <scelta>Sì! Dammi qua!</scelta>
+                <risposta></risposta>
+
+                <funzione>
+                    <variabile id = "spiegazione">
+                        <val>Dai la lettera all'utente e fai partire la quest</val>
+                    </variabile>
+
+                    <variabile id = "risposta">
+                        <val>
+                            _npc.nome_: Sapevo di poter contare su di te! Non ho idea di dove si trovi Adam al momento...\nTuttavia, sta a te cercare di capire dove potrebbe trovarsi. Buona fortuna, eheheh!
+                        </val>
+                    </variabile>
+                </funzione>
+            </click>
+
+            <click id = "non_ho_intenzione_di_farti_da_complice" vai-a-stato = "fine" da-programmare = "false" controllo-visibile = "false">
+                <scelta>Non ho intenzione di farti da complice</scelta>
+                <risposta>
+                    _npc.nome_: Peggio per te! Torna quando avrai capito in che razza di mondo sei nato, pensi che io mandi avanti questi affari loschi per divertimento? Tsk!
+                </risposta>
+            </click>
+        </opzioni>
+
+        <opzioni stato = "3">
+            <click id = "dimmi_di_piu" vai-a-stato = "4" da-programmare = "false" controllo-visibile = "false">
+                <scelta>Dimmi di più!</scelta>
+                <risposta>
+                    _npc.nome_: Vedi, caro amico, io sono ricercato ad Oskaria. Il mio crimine? Furto di pozioni dai Jankos. Devi sapere che quei due fanno affari nel mercato nero vendendo pozioni illegali qui ad Oskaria. Pozioni che, chiaramente, non vendono ai clienti abituali del negozio. Mi sono intrufolato li dentro e ho sottratto una decina di pozioni mannare. Non sai cosa sono? Ci puoi arrivare; queste pozioni sono in grado di trasformarti permanentemente in un licantropo. Ci ho fatto un bel po' di soldi vendendole al mercato nero. Tuttavia, ora devo nascondermi qui finché non trovo una sistemazione fuori da Oskaria.\nTutto ciò che devi fare è consegnare una lettera ad un mio caro amico.
+                </risposta>
+            </click>
+
+            <click id = "mi_dispiace_sono_una_persona_per_bene" vai-a-stato = "fine" da-programmare = "false" controllo-visibile = "false">
+                <scelta>Mi dispiace, sono una persona per bene</scelta>
+                <risposta>_npc.nome_: Smidollato, se hai bisogno di soldi mi trovi qui. Soldi in cambio di favori, s'intende</risposta>
+            </click>
+        </opzioni>
+
+        <opzioni stato = "4">
+            <click id = "interessante_voglio_aiutarti" vai-a-stato = "fine" da-programmare = "true" controllo-visibile = "false">
+                <scelta>Interessante! Voglio aiutarti!</scelta>
+                <risposta></risposta>
+
+                <funzione>
+                    <variabile id = "spiagazione">
+                        <val>Dai la lettera all'utente e fai partire la quest</val>
+                    </variabile>
+
+                    <variabile id = "risposta">
+                        <val>_npc.nome_: Vedo che mi capisci. Consegna questa lettera ad Adam, non ho idea di dove si trovi al momento...\nTuttavia, sta a te cercare di capire dove potrebbe trovarsi. Buona fortuna, eheheh!</val>
+                    </variabile>
+                </funzione>
+            </click>
+
+            <click id = "sei_un_ladro" vai-a-stato = "fine" da-programmare = "false" controllo-visibile = "false">
+                <scelta>Sei un ladro! Non voglio avere nulla a che fare con te!</scelta>
+                <risposta>
+                    _npc.nome_: Allora vattene e non farmi perdere altro tempo!\n\n_npc.nome_ sbuffa e impreca
+                </risposta>
+            </click>
+        </opzioni>
+   </menu>
+
+   <menu id = "dopoQuest">
+        <fraseIniziale>_npc.nome_: Come ci si sente ad aver aiutato un bandito? Eheheh</fraseIniziale>
+        <opzioni stato = "1">
+            <click vai-a-stato = "fine" da-programmare = "false" controllo-visibile = "false">
+                <scelta>Non mi fa ne caldo ne freddo</scelta>
+                <risposta>_npc.nome_: Ehehe!</risposta>
+            </click>
+
+            <click vai-a-stato = "fine" da-programmare = "false" controllo-visibile = "false">
+                <scelta>Vorrei non averlo fatto...</scelta>
+                <risposta>_npc.nome_ sorride maliziosamente</risposta>
+            </click>
+        </opzioni>
+
+        <opzioni stato = "2">
+            <click>
+                <scelta></scelta>
+                <risposta></risposta>
+            </click>
+        </opzioni>
+   </menu>
+
+   <menu id = "duranteQuest">
+        <fraseIniziale>_npc.nome_: Allora? Hai consegnato la lettera ad Adam?</fraseIniziale>
+
+        <opzioni stato = "1">
+            <click id = "certo_che_si" vai-a-stato = "fine" da-programmare = "true" controllo-visibile = "false">
+                <scelta>Certo che sì!</scelta>
+                <risposta></risposta>
+
+                <funzione>
+                    <variabile id = "non_consegnata">
+                        <val>_npc.nome_: Ma chi vuoi prendere in giro!? Muoviti a consegnare quella lettera!</val>
+                    </variabile>
+
+                    <variabile id = "consegnata">
+                        <val>
+                            _npc.nome_: Mi hai fatto un gran favore, eheheh. Ti ricompenserò con lo strumento che ho usato per scavare il mio rifugio nascosto!\n\n_npc.nome_ ti consegna un Piccone Da Minatore(+5)\n\n
+                        </val>
+                    </variabile>
+                </funzione>
+            </click>
+
+            <click id = "non_ancora" vai-a-stato = "fine" da-programmare = "false" controllo-visibile = "false">
+                <scelta>Non ancora...</scelta>
+                <risposta>_npc.nome_: Dunque cosa aspetti? Corri!</risposta>
+            </click>
+        </opzioni>
+
+        <opzioni stato = "2">
+            <click>
+                <scelta></scelta>
+                <risposta></risposta>
+            </click>
+        </opzioni>
+
+   </menu>
+</root>

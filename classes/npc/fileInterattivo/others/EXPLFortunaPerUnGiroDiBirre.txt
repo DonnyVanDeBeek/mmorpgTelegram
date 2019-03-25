@@ -1,0 +1,3 @@
+Kmerr nota che curiosi attorno e richiama la tua attenzione.\n\n<b>Kmerr</b>: È da giorni che mi sono aggirato per le foreste in cerca di un premio per la mia fama eccelsa e quello che mi son ritrovato è stato uno stupido quadrifoglio. Te lo vendo per qualche moneta, quel che basta per fare qualche altro giro di birra, che ne dici?
+1@@@@Accetta####Paghi la cifra e il guerriero ti cede la rarità||||exit
+1@@@@Rifiuta####Preferisci non fare acquisti avventati. Kmerr ne è indifferente e torna a sedersi borbottando quanto vorrebbe stringere tra le mani una buona ambrata||||exit
