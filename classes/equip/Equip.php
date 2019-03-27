@@ -1,5 +1,22 @@
 <?php
-    class Equip extends TipoEquip{
+    interface interface_equip{
+        #Battaglia
+        public function onAttack(&$target); #Prima di sferrare un'attacco
+
+        public function onDefense(&$dealer); #Funzione deprecata(?) Usare onGetHitten
+
+        public function buff(Danno &$Danno); #Potenzia il danno prima di scagliarlo
+
+        public function debuff(Danno &$Danno); #Indebolisce il danno prima che il possessore lo riceva
+
+        public function onHit(&$target); #Quando il possessore colpisce
+
+        public function onGetHitten(&$dealer); #Quando il possessore viene colpito
+
+        public function effect(); #A fine turno
+    }
+
+    class Equip extends TipoEquip implements interface_equip{
         private $equipId;
         private $equipAttivo;
         private $equipLivello;
