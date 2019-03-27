@@ -1,5 +1,40 @@
 <?php
-	Class Creatura{
+	interface interface_creatura{
+		#Danni
+		public function subisciDannoFisico			(Danno $Danno);
+		public function subisciDannoBruciatura		(Danno $Danno);
+		public function subisciDannoContundente		(Danno $Danno);
+		public function subisciDannoPerforante		(Danno $Danno);
+		public function subisciDannoTagliente		(Danno $Danno);
+		public function subisciDannoMagico			(Danno $Danno);
+		public function subisciDannoPuro			(Danno $Danno);
+		public function subisciDannoEsplosione		(Danno $Danno);
+		public function subisciDannoVeleno			(Danno $Danno);
+		public function subisciDannoSanguinamento	(Danno $Danno);
+		public function subisciDannoAcido			(Danno $Danno);
+		public function subisciDannoElettrico		(Danno $Danno);
+		public function subisciDannoSquarciante		(Danno $Danno);
+		public function subisciDannoFuoco			(Danno $Danno);
+
+		#Funzione principale che gestisce il danno, tutti i danni passano da questa
+		public function subisciDanno 			    (Danno &$Danno); 
+
+		#OverTimes
+		public function dealWithOverTime(OverTime &$OT); #Quando un OverTime si attiva
+
+		#Battaglia
+		public function passive(); #Si attiva automaticamente a inizio turno
+		public function dealDamage(Danno &$D); #Quando arreca danno
+		public function dealWithBuff(Buff &$Buff); #Quando subisce un buff/debuff
+		public function dodge($precisione); #Calcola se la schivata riesce o meno
+
+		#Movimento 
+		public function moveAwayFrom($Target); #Decide di allontanarsi da qualcuno
+		public function moveTowards($Target); #Decide di avvicinarsi a qualcuno
+		public function sposta($n, $verso); #Viene spostato
+	}
+
+	Class Creatura implements interface_creatura{
 		protected $arrStat = array();
 
 		public function setArrStat($statId, $tipo, $value){
@@ -7,6 +42,10 @@
 		}
 		
 		//INIZIO SUBISCI DANNI
+		public function subisciDanno(Danno &$Danno){
+			return $Danno->getDmg();
+		}
+
 		public function subisciDannoFisico(Danno $Danno){
 			$perc = $this->getPercDannoExp($this->getTotalStat('ARMATURA'));
 			if($perc == 0) $perc = 0.01;
